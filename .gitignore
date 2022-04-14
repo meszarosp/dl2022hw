@@ -3,7 +3,6 @@ dl2022hw.zip
 .ipynb_checkpoints/milestone1-checkpoint.ipynb
 *.jpg
 garbage1/one-indexed-files-notrash_test.txt
-*.ipynb
 garbage1/one-indexed-files-notrash_train.txt
 garbage1/one-indexed-files-notrash_val.txt
 garbage1/one-indexed-files.txt
