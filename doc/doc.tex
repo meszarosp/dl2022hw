@@ -7,6 +7,7 @@
 \usepackage[english]{babel}
 \usepackage{hyperref}
 \usepackage{graphicx}
+
 \begin{document}
 	\title{Deep learning homework project: \ Waste classification}
 	\author{Anna Gergály, Péter Mészáros}
@@ -19,11 +20,16 @@
 	
 	Our goal in this project was to create and review different solutions for a deep learning system that could provide automatic waste classification in such an environment.
 	\section{Previous solutions}
-	https://www.hindawi.com/journals/cin/2018/5060857/
+	In \cite{Chu2018} a complex hardware-software solution with a multilayer hybrid method was proposed to classify waste into recyclable and non-recyclable classes and they achieved over 90\% mean accuracy. They cite previous solutions made with R-CNN, CNN and SVM classifiers with accuracy rates ranging from 23\% to 77\%. They trained the model with images of wastes found in urban public areas, in total of 22 classes.
 	
-	https://www.sciencedirect.com/science/article/pii/S2351978919307231
+	The CNN they used in \cite{Chu2018} was a modified version of AlexNet \cite{AlexNet} consisted of 5 convolution layers, 3 max-pooling layers and 3 dense layers in the end. The input image size was 240$\times$240, the convolution kernel sizes were 11$\times$11 for the first, 5$\times$5 for the second and 3$\times$3 for the last 3 convolutional layers. The first two dense layers had 512 neurons. The last dense layer had 22 neurons to match the number of classes. After this an additional layer was added during training with 1 neuron to classify into recyclable and non-recyclable.
 	
-	https://towardsdatascience.com/advanced-waste-classification-with-machine-learning-6445bff1304f
+	They achieved accuracy and recall over 90\% with only the CNN, but the metrics were even better when they added extra information by other sensor (e. g. weight).
+	
+	In \cite{ADEDEJI2019607} a pre-trained ResNet-50 \cite{DBLP:journals/corr/HeZRS15}
+	network was used for recognition with a Support Vector Machine (SVM) classifier. The dataset is from \cite{yang2016classification} which turned out to be one of the datasets we used from Kaggle. (The dataset from Kaggle is just a subset of the original. \cite{cchangcs_2018}) They achieved 87\% accuracy after 12 epochs trained with SGDM optimizer.
+	
+	In \cite{10.1145/3417473.3417474} a pre-trained Inception-v3 was further trained to classify waste. The initial training was done on the ImageNet \cite{5206848} dataset. The training and testing was done using a Raspberry Pi 3B, exceptional results were achieved with 92.5\% with a similar training dataset to the previous one.
 	
 	\section{Dataset}
 	We assembled our dataset from 3 online sources (2 from Kaggle and 1 from Github) both to have a larger pool of images and a more varied one. There are pictures that contain the discarded item in front of plain backgrounds and ones that show them in a more organic way: dirty and/or muddy on a floor. 
@@ -52,6 +58,10 @@
 	
 	\section{Results}
 	
+	
 	\section{Discussion}
+	
+	\bibliographystyle{unsrt}
+	\bibliography{irodalom}
 	
 \end{document}
