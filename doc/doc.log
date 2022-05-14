@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.14)  10 MAY 2022 21:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.14)  14 MAY 2022 15:00
 entering extended mode
 **./doc.tex
 (doc.tex
@@ -427,29 +427,44 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
 
 (C:\Users\annag\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [1
+)
+<dataset.png, id=44, 830.10126pt x 521.95pt>
+File: dataset.png Graphic file (type png)
+<use dataset.png>
+Package pdftex.def Info: dataset.png  used on input line 38.
+(pdftex.def)             Requested size: 830.09924pt x 521.94872pt.
+ [1
 
-{C:/Users/annag/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2] (doc.aux)
+{C:/Users/annag/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 51.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 51.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 51.
+ [2 <./dataset.png>]
+(doc.aux)
 Package rerunfilecheck Info: File `doc.out' has not changed.
 (rerunfilecheck)             Checksum: D227797721E33958ECF2E1EE0F8993E0;1108.
  ) 
 Here is how much of TeX's memory you used:
- 9425 strings out of 478864
- 142658 string characters out of 2848660
- 471795 words of memory out of 3000000
- 27206 multiletter control sequences out of 15000+600000
- 433582 words of font info for 45 fonts, out of 8000000 for 9000
+ 9460 strings out of 478864
+ 143061 string characters out of 2848660
+ 471891 words of memory out of 3000000
+ 27230 multiletter control sequences out of 15000+600000
+ 444368 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,6n,66p,770b,335s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/annag/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{
-C:/Users/annag/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C:/U
-sers/annag/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/U
-sers/annag/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Us
-ers/annag/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Use
-rs/annag/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb>
-Output written on doc.pdf (2 pages, 127257 bytes).
+ 60i,7n,66p,770b,338s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Users/annag/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C
+:/Users/annag/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/U
+sers/annag/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C:/Users
+/annag/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users
+/annag/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/
+annag/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/a
+nnag/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb>
+Output written on doc.pdf (2 pages, 143420 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
- 81 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 93 PDF objects out of 1000 (max. 8388607)
+ 14 named destinations out of 1000 (max. 500000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 
