@@ -15,7 +15,7 @@
 	\maketitle
 	
 	\section{Introduction}
-	Lot of waste. Waste management on this scale poses a lot of challenges and risks, both economically and environmentally. One of the best solutions we know at the moment besides trying to reduce the amount of waste created is to recycle. This helps recover resources and decreases chance of pollution and mitigates energy usage. 
+	Lot of waste is produced all around the globe each year and this amount is increasing. Waste management on this scale poses a lot of challenges and risks, both economically and environmentally. One of the best solutions we know at the moment besides trying to reduce the amount of waste created is to recycle. This helps recover resources and decreases chance of pollution and mitigates energy usage. 
 	
 	Despite it's obvious benefits it is not practiced to a large enough extent. The reasons for this mainly stem from the same issue: the need to separate the different materials. At home recycling often fails due to the cumbersome nature of the activity and in-facility waste separation is a very difficult task: manual classification is almost impossible due to sheer quantity and automatic waste sorting usually only works for certain materials in certain conditions.
 	
@@ -56,7 +56,7 @@
 	
 	\section{Proposed method}
 	
-	Our approach was to try out multiple pre-trained image classification CNNs by using transfer learning to prepare them for our specific task. The ones we use are EfficientNetB5 and MobileNetV2, both pre-trained on the imagenet dataset. To add a bit more interest and challenge to task we also decided to try our hands at building our own CNN from scratch.
+	Our approach was to try out multiple pre-trained image classification CNNs by using transfer learning to prepare them for our specific task. The ones we use are EfficientNetB5 and MobileNetV2, both pre-trained on the imagenet dataset. To add a bit more interest and challenge to the task we also decided to try our hands at building our own CNN from scratch.
 	
 	\subsection{EfficientNetB5}
 	
@@ -69,13 +69,13 @@
 	\subsection{Our own model}
 	We built a CNN model comprising of Keras's Conv2D, MaxPool2D, AveragePooling2D, Dropout, Dense, Input and Flatten layers.
 	
-	The model consisted of 4 convolutional blocks, each of which had 2 convolutional layers a maxpool/averapool layer and a dropout layer.
-	For the initial approach we stacked 2 convolutional layers with (5, 5) kernel size and 10 filters and a maxpool layer than a dropout. This is section is repeated with (3, 3) kernel size. This is twice repeated, but instead of 10 filters with only 5 filters, and instead of the maxpool layer averagepool is used. The last layer is flattened and 3 dense layers are added with 1000 neurons and relu activation. A last dropout is added and a last dense layer with 8 neurons and softmax activation.
+	The model consisted of 4 convolutional blocks, each of which had 2 convolutional layers a maxpool/averagepool layer and a dropout layer.
+	For the initial approach we stacked 2 convolutional layers with (5, 5) kernel size and 10 filters and a maxpool layer then a dropout. This section is repeated with (3, 3) kernel size. This is repeated twice, but with only 5 filters, and instead of the maxpool layer averagepool is used. The last layer is flattened and 3 dense layers are added with 1000 neurons and relu activation. A last dropout is added and a last dense layer with 8 neurons and softmax activation.
 	The dropouts had a 0.4 dropout rate.
 	This model didn't get us far, a high accuracy couldn't be achieved.
 	
 	For the second approach we tweaked the model a bit, we decided to try adding skip connections to the model. The last dense layers were also reduced to have 512 neurons instead of 1000.
-	Before the last convolutional block a skip connection was added from the averagepool layer. Before the last 3 dense layers a concatenation layers is added which concatenates the flattened output from the third block's averagepool layer and the fourth block's averagepool layer.
+	Before the last convolutional block a skip connection was added from the averagepool layer. Before the last 3 dense layers a concatenation layer is added which concatenates the flattened output from the third block's averagepool layer and the fourth block's averagepool layer.
 	With this approach, a 39\% accuracy was achieved.
 	
 	The last appoach was a slight modification of the second one.
@@ -162,7 +162,7 @@
 	\section{Discussion}
 	The results with the best models are comparable to the results which we've seen and covered in section \ref{sec:prevsolutions}.
 	Our own model had the worst results, but they are still better than random chance. The main reason could be the small number of images compared to the ImageNet dataset which the other models were pre-trained on. The model complexity and size can also we a hurdle, but as we've seen in \cite{Chu2018}, great results can be achieved which smaller (in terms of layer number) models.
-	The best results were achieved with the EfficientNetB5 which is not surprising because it's the largest model out of the three with about 30 million parameters. With the MobileNetV2 the accuracy was worse, but that model has about 3 million parameters and the inference time on a GPU is more than 6 times better (according to the Keras site \cite{keras_applications}).
+	The best results were achieved with the EfficientNetB5 which is not surprising because it's the largest model out of the three with about 30 million parameters. With the MobileNetV2 the accuracy was worse, but that model has about 3 million parameters and the inference time on a GPU is more than 6 times better (according to the Keras site).
 	
 	Overall, we found this method for waste classification quite effective and we believe that with further research into this subject involving segmentation and not just classification it could be used in a modern automatic waste sorting system.
 	
