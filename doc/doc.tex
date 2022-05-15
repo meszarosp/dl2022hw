@@ -1,7 +1,7 @@
 \documentclass[twocolumn]{article}
 
 \usepackage{geometry}
-\geometry{a4paper, margin=1in}
+\geometry{a4paper, margin=0.95in}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -38,7 +38,7 @@
 	
 	We settled on having eight categories within the datasets. These (glass, paper, cardboard, trash, metal, plastic, e-waste, medical) were selected mainly on two grounds: the available data and practical considerations. Most of these are well-known, already used recycling categories (glass, paper, cardboard, metal, plastic) and we have a multiple classes for non-recyclables, too. The main one of these is trash, but having extra categories for e-waste and medical waste makes sense as these are more dangerous environmentally and public health-wise. To make our datasets conform to these categorical standards we rearranged some of the pre-labeled data: e.g. merged different colored glasses and deleted categories we deemed unnecessary.
 	
-	The datasets together hold about 23,000 images which we decided to split in 14:3:3 ratio into training, validation and test sets.\ref{dataset} On the training set we decided to employ data augmentation: using the keras ImageDatasetGenerator we added zooming and shifting as well as both vertical and horizontal flips and 90° rotation to account for the fact that these items could be seen in any orientation in a waste management scenario.
+	The datasets together hold about 23,000 images which we decided to split in 14:3:3 ratio into training, validation and test sets. (Number of images per class on figure \ref{dataset}.) On the training set we decided to employ data augmentation: using the keras ImageDatasetGenerator we added zooming and shifting as well as both vertical and horizontal flips and 90° rotation to account for the fact that these items could be seen in any orientation in a waste management scenario.
 	
 	\begin{figure}[h]
 		\centering
@@ -69,18 +69,18 @@
 	\subsection{Our own model}
 	We built a CNN model comprising of Keras's Conv2D, MaxPool2D, AveragePooling2D, Dropout, Dense, Input and Flatten layers.
 	
-	The model consisted of 4 convolutional blocks, each of which had 2 convolutional layers a maxpool/averagepool layer and a dropout layer.
-	For the initial approach we stacked 2 convolutional layers with (5, 5) kernel size and 10 filters and a maxpool layer then a dropout. This section is repeated with (3, 3) kernel size. This is repeated twice, but with only 5 filters, and instead of the maxpool layer averagepool is used. The last layer is flattened and 3 dense layers are added with 1000 neurons and relu activation. A last dropout is added and a last dense layer with 8 neurons and softmax activation.
+	The model consisted of 4 convolutional blocks, each of which had 2 convolutional layers a max-pooling/average-pooling layer and a dropout layer.
+	For the initial approach we stacked 2 convolutional layers with 5$\times$5 kernel size and 10 filters and a max-pooling layer then a dropout. This section is repeated with 3$\times$3 kernel size. This is repeated twice, but with only 5 filters, and instead of the max-pooling layer an average-pooling is used. The last layer is flattened and 3 dense layers are added with 1000 neurons and relu activation. A last dropout is added and a last dense layer with 8 neurons and softmax activation.
 	The dropouts had a 0.4 dropout rate.
 	This model didn't get us far, a high accuracy couldn't be achieved.
 	
 	For the second approach we tweaked the model a bit, we decided to try adding skip connections to the model. The last dense layers were also reduced to have 512 neurons instead of 1000.
-	Before the last convolutional block a skip connection was added from the averagepool layer. Before the last 3 dense layers a concatenation layer is added which concatenates the flattened output from the third block's averagepool layer and the fourth block's averagepool layer.
+	Before the last convolutional block a skip connection was added from the average-pooling- layer. Before the last 3 dense layers a concatenation layer is added which concatenates the flattened output from the third block's average-pooling layer and the fourth block's average-pooling layer.
 	With this approach, a 39\% accuracy was achieved.
 	
 	The last appoach was a slight modification of the second one.
-	The third block's averagepool layer's parameters were modified. The pool size became (3, 3) with a stride of 3. On top of this an additional branch was added consisting of 2 convolutional blocks. The first block has 2 convolutional layers with (5, 5) kernel size, 20 filters and 2 strides, after this a maxpool and a dropout layer is also there. (The strides were added to reduce the number of nodes and parameters.) 
-	The second block has 2 convolutional layers as well with a kernel size of (3, 3) and with 10 and 5 filters respectively. A maxpool layer is added with a pool size of 3 and strides 3 of 3. The output of the maxpool is flattened and concatenated to the output of the other branches flattened layers.
+	The third block's average-pooling layer's parameters were modified. The pool size became 3$\times$3 with a stride of 3. On top of this an additional branch was added consisting of 2 convolutional blocks. The first block has 2 convolutional layers with 5$\times$5 kernel size, 20 filters and 2 strides, after this a maxpool and a dropout layer is also there. (The strides were added to reduce the number of nodes and parameters.) 
+	The second block has 2 convolutional layers as well with a kernel size of 3$\times$3 and with 10 and 5 filters respectively. A max-pooling layer is added with a pool size of 3 and strides 3 of 3. The output of the maxpool is flattened and concatenated to the output of the other branches flattened layers.
 	
 	
 	\subsection{MobileNetV2}
@@ -98,14 +98,14 @@
 	The best results were achieved with the EfficientNetB5, the accuracy on the test dataset is 89.9\% as can be seen on figure \ref{fig:model1_metrics}. The accuracy achieved with MobileNetV2 was 83.5\% (figure \ref{fig:model3_metrics}). On our own model the accuracy was about 37-39\% (figure \ref{fig:model2_1_metrics}, \ref{fig:model2_2_metrics}).
 	The confusion matrices are on figure \ref{fig:model1_conf}, \ref{fig:model2_1_conf}, \ref{fig:model2_2_conf}, \ref{fig:model3_conf}.
 	
-	\begin{figure}[h]
+	\begin{figure}[htb]
 		\centering
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model1_metrics.png}}
 		\caption{The evaluated metrics on the first model.}
 		\label{fig:model1_metrics}
 	\end{figure}
-	\begin{figure}[t]
+	\begin{figure}[htb]
 		\centering
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model2_1_metrics.png}}
@@ -113,14 +113,14 @@
 		\label{fig:model2_1_metrics}
 	\end{figure}
 	
-	\begin{figure}[ht]
+	\begin{figure}[htb]
 		\centering
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model2_2_metrics.png}}
 		\caption{The evaluated metrics on the second model, with three branches.}
 		\label{fig:model2_2_metrics}
 	\end{figure}
-	\begin{figure}[ht]
+	\begin{figure}[htb]
 		
 		\centering
 		\resizebox{\linewidth}{!}{
@@ -136,21 +136,21 @@
 		\caption{Confusion matrix of the first model.}
 		\label{fig:model1_conf}
 	\end{figure}
-	\begin{figure}[htb]
+	\begin{figure}[ht]
 		\centering
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model2_1_conf.png}}
 		\caption{Confusion matrix of the second model with two branches.}
 		\label{fig:model2_1_conf}
 	\end{figure}
-	\begin{figure}[htb]
+	\begin{figure}[ht]
 		\centering
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model2_2_conf.png}}
 		\caption{Confusion matrix of the second model with three branches.}
 		\label{fig:model2_2_conf}
 	\end{figure}
-	\begin{figure}[htb]
+	\begin{figure}[ht]
 		
 		\centering
 		\resizebox{\linewidth}{!}{
@@ -161,11 +161,12 @@
 	
 	\section{Discussion}
 	The results with the best models are comparable to the results which we've seen and covered in section \ref{sec:prevsolutions}.
-	Our own model had the worst results, but they are still better than random chance. The main reason could be the small number of images compared to the ImageNet dataset which the other models were pre-trained on. The model complexity and size can also we a hurdle, but as we've seen in \cite{Chu2018}, great results can be achieved which smaller (in terms of layer number) models.
+	Our own model had the worst results, but they are still better than random chance. The main reason could be the small number of images compared to the ImageNet dataset which the other models were pre-trained on. The model complexity and size can also be a hurdle, but as we've seen in \cite{Chu2018}, great results can be achieved which smaller (in terms of layer number) models.
 	The best results were achieved with the EfficientNetB5 which is not surprising because it's the largest model out of the three with about 30 million parameters. With the MobileNetV2 the accuracy was worse, but that model has about 3 million parameters and the inference time on a GPU is more than 6 times better (according to the Keras site).
 	
 	Overall, we found this method for waste classification quite effective and we believe that with further research into this subject involving segmentation and not just classification it could be used in a modern automatic waste sorting system.
 	
+	\newpage
 	\bibliographystyle{unsrt}
 	\bibliography{irodalom}
 	
