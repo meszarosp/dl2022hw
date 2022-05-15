@@ -85,7 +85,11 @@
 	
 	\subsection{MobileNetV2}
 	
-	We wanted to try out a smaller model, both to improve inference time and 
+	We wanted to try out a smaller model, both to improve inference time and to be able to fine-tune the model. With about $3000000$ parameters MobileNetV2 seemed a good fit for the task. We prepared this model similar to the first model: removed the top-layer and substituted it with a few fit for our own needs: global average pooling, dropout and a dense layer with 8-nodes and a softmax activation to serve as an output layer in the 8-class classification problem.
+	
+	When training this model we used the Adam optimizer and used categorical crossentropy as loss and categorical accuracy as our main metric. Batch size and steps per epoch were 32 and 400 respectively. This yielded about \textasciitilde82.5\% categorical accuracy.
+	
+	We also tried to fine-tune the model with various very small learning rates, ranging from $0.001$ to $0.000001$ but these have all produced worse results than the previous one, so we decided to keep the original imagenet weights.
 	
 	\section{Evaluation method}
 	For evaluating the trained models, we used a few metrics, these were calculated using sklearn. The calculated metrics are accuracy, balanced accuracy, precision (weighted), recall (weighted), f1 score (weighted) and top2 and top3 accuracy. Of course the top2 and top3 accuracies are less important because of the small number of classes.
