@@ -40,10 +40,16 @@
 	
 	The datasets together hold about 23,000 images which we decided to split in 14:3:3 ratio into training, validation and test sets.\ref{dataset} On the training set we decided to employ data augmentation: using the keras ImageDatasetGenerator we added zooming and shifting as well as both vertical and horizontal flips and 90° rotation to account for the fact that these items could be seen in any orientation in a waste management scenario.
 	
-	\begin{figure}[htb]
+	\begin{figure}[h]
 		\centering
-		\resizebox{\linewidth}{!}{
-			\includegraphics{dataset.png}}
+		\includegraphics[width=\linewidth]{dataset_images.png}
+		\caption{Example images from the dataset.(From left to right: metal, paper, plastic, trash, cardboard, e-waste, glass, medical.)}
+		\label{dataset_images}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\linewidth]{dataset.png}
 		\caption{The size of the classes as divided into training, validation and test sets.}
 		\label{dataset}
 	\end{figure}
@@ -79,14 +85,14 @@
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model1_metrics.png}}
 		\caption{The evaluated metrics on the first model.}
-		\label{dataset}
+		\label{model1_metrics}
 	\end{figure}
 	\begin{figure}
 		\centering
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model3_metrics.png}}
 		\caption{The evaluated metrics on the third model.}
-		\label{dataset}
+		\label{model3_metrics}
 	\end{figure}
 	
 	\section{Discussion}
