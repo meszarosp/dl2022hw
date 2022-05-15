@@ -67,7 +67,20 @@
 	This however, was not possible, due to our technical limitations: the Google Colab environment could not support training this large of a model. This was one of the reasons we decided on a MobileNet for the third model: we wanted a transfer learning solution where we could also employ fine-tuning. 
 	
 	\subsection{Our own model}
+	We built a CNN model comprising of Keras's Conv2D, MaxPool2D, AveragePooling2D, Dropout, Dense, Input and Flatten layers.
 	
+	The model consisted of 4 convolutional blocks, each of which had 2 convolutional layers a maxpool/averapool layer and a dropout layer.
+	For the initial approach we stacked 2 convolutional layers with (5, 5) kernel size and 10 filters and a maxpool layer than a dropout. This is section is repeated with (3, 3) kernel size. This is twice repeated, but instead of 10 filters with only 5 filters, and instead of the maxpool layer averagepool is used. The last layer is flattened and 3 dense layers are added with 1000 neurons and relu activation. A last dropout is added and a last dense layer with 8 neurons and softmax activation.
+	The dropouts had a 0.4 dropout rate.
+	This model didn't get us far, a high accuracy couldn't be achieved.
+	
+	For the second approach we tweaked the model a bit, we decided to try adding skip connections to the model. The last dense layers were also reduced to have 512 neurons instead of 1000.
+	Before the last convolutional block a skip connection was added from the averagepool layer. Before the last 3 dense layers a concatenation layers is added which concatenates the flattened output from the third block's averagepool layer and the fourth block's averagepool layer.
+	With this approach, a 39\% accuracy was achieved.
+	
+	The last appoach was a slight modification of the second one.
+	The third block's averagepool layer's parameters were modified. The pool size became (3, 3) with a stride of 3. On top of this an additional branch was added consisting of 2 convolutional blocks. The first block has 2 convolutional layers with (5, 5) kernel size, 20 filters and 2 strides, after this a maxpool and a dropout layer is also there. (The strides were added to reduce the number of nodes and parameters.) 
+	The second block has 2 convolutional layers as well with a kernel size of (3, 3) and with 10 and 5 filters respectively. A maxpool layer is added with a pool size of 3 and strides 3 of 3. The output of the maxpool is flattened and concatenated to the output of the other branches flattened layers.
 	
 	
 	\subsection{MobileNetV2}
@@ -78,21 +91,29 @@
 	For evaluating the trained models, we used a few metrics, these were calculated using sklearn. The calculated metrics are accuracy, balanced accuracy, precision (weighted), recall (weighted), f1 score (weighted) and top2 and top3 accuracy. Of course the top2 and top3 accuracies are less important because of the small number of classes.
 	
 	\section{Results}
-	The best results were achieved with the EfficientNetB5, the accuracy on the test dataset is 89.9\%. The accuracy achieved with MobileNetV2 was 83.5\%. On our own model the accuracy was about 50\%.
+	The best results were achieved with the EfficientNetB5, the accuracy on the test dataset is 89.9\% as can be seen on figure \ref{fig:model1_metrics}. The accuracy achieved with MobileNetV2 was 83.5\% (figure \ref{fig:model3_metrics}). On our own model the accuracy was about 37-39\% (figure \ref{fig:model2_1_metrics}).
 	
-	\begin{figure}
+	\begin{figure}[h]
 		\centering
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model1_metrics.png}}
 		\caption{The evaluated metrics on the first model.}
-		\label{model1_metrics}
+		\label{fig:model1_metrics}
 	\end{figure}
-	\begin{figure}
+	\begin{figure}[h]
+		\centering
+		\resizebox{\linewidth}{!}{
+			\includegraphics{model2_1_metrics.png}}
+		\caption{The evaluated metrics on the second model, with two branches.}
+		\label{fig:model2_1_metrics}
+	\end{figure}
+	\begin{figure}[h]
+		
 		\centering
 		\resizebox{\linewidth}{!}{
 			\includegraphics{model3_metrics.png}}
 		\caption{The evaluated metrics on the third model.}
-		\label{model3_metrics}
+		\label{fig:model3_metrics}
 	\end{figure}
 	
 	\section{Discussion}
