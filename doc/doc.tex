@@ -17,15 +17,16 @@
 	\section{Introduction}
 	Lot of waste. Waste management on this scale poses a lot of challenges and risks, both economically and environmentally. One of the best solutions we know at the moment besides trying to reduce the amount of waste created is to recycle. This helps recover resources and decreases chance of pollution and mitigates energy usage. 
 	
-	Despite it's obvious benefits it is not practiced at a large enough extent. The reasons for this mainly stem from the same issue: the need to separate the different materials. At home recycling often fails due to the cumbersome nature of the activity and in-facility waste separation is a very difficult task: manual classification is almost impossible due to sheer quantity and automatic waste sorting usually only works for certain materials in certain conditions.
+	Despite it's obvious benefits it is not practiced to a large enough extent. The reasons for this mainly stem from the same issue: the need to separate the different materials. At home recycling often fails due to the cumbersome nature of the activity and in-facility waste separation is a very difficult task: manual classification is almost impossible due to sheer quantity and automatic waste sorting usually only works for certain materials in certain conditions.
 	
 	Our goal in this project was to create and review different solutions for a deep learning system that could provide automatic waste classification in such an environment.
+	
 	\section{Previous solutions}\label{sec:prevsolutions}
-	In \cite{Chu2018} a complex hardware-software solution with a multilayer hybrid method was proposed to classify waste into recyclable and non-recyclable classes and they achieved over 90\% mean accuracy. They cite previous solutions made with R-CNN, CNN and SVM classifiers with accuracy rates ranging from 23\% to 77\%. They trained the model with images of wastes found in urban public areas, in total of 22 classes.
+	In \cite{Chu2018} a complex hardware-software solution with a multilayer hybrid method was proposed to classify waste into recyclable and non-recyclable classes and they achieved over 90\% mean accuracy. They cite previous solutions made with R-CNN, CNN and SVM classifiers with accuracy rates ranging from 23\% to 77\%. They trained the model with images of waste found in urban public areas, in a total of 22 classes.
 	
-	The CNN they used in \cite{Chu2018} was a modified version of AlexNet \cite{AlexNet} consisted of 5 convolution layers, 3 max-pooling layers and 3 dense layers in the end. The input image size was 240$\times$240, the convolution kernel sizes were 11$\times$11 for the first, 5$\times$5 for the second and 3$\times$3 for the last 3 convolutional layers. The first two dense layers had 512 neurons. The last dense layer had 22 neurons to match the number of classes. After this an additional layer was added during training with 1 neuron to classify into recyclable and non-recyclable.
+	The CNN they used in \cite{Chu2018} was a modified version of AlexNet \cite{AlexNet} that consisted of 5 convolution layers, 3 max-pooling layers and 3 dense layers at the end. The input image size was 240$\times$240, the convolution kernel sizes were 11$\times$11 for the first, 5$\times$5 for the second and 3$\times$3 for the last 3 convolutional layers. The first two dense layers had 512 neurons. The last dense layer had 22 neurons to match the number of classes. After this an additional layer was added during training with 1 neuron to classify into recyclable and non-recyclable.
 	
-	They achieved accuracy and recall over 90\% with only the CNN, but the metrics were even better when they added extra information by other sensor (e. g. weight).
+	They achieved accuracy and recall over 90\% with only the CNN, but the metrics were even better when they added extra information by other sensors (e. g. weight).
 	
 	In \cite{ADEDEJI2019607} a pre-trained ResNet-50 \cite{DBLP:journals/corr/HeZRS15}
 	network was used for recognition with a Support Vector Machine (SVM) classifier. The dataset is from \cite{yang2016classification} which turned out to be one of the datasets we used from Kaggle. (The dataset from Kaggle is just a subset of the original. \cite{cchangcs_2018}) They achieved 87\% accuracy after 12 epochs trained with SGDM optimizer.
@@ -55,7 +56,7 @@
 	
 	We chose the B5 variant of the EfficientNet because of it's moderate size and fairly strong results. We wanted something that would be feasible to train given our limited GPU-resources, but had a high-chance of yielding acceptable results. We removed the top-layer and substituted it with a few fit for our own needs: global average pooling, dropout and a dense layer with 8-nodes and a softmax activation to serve as an output layer in the 8-class classification problem.
 	
-	We trained this model, with only transfer learning using categorical crossentropy as our loss and categorical accuracy as our main metric, we used early stopping to stop the model from overfitting. The chosen batch size was 32, and 400 steps per epoch. We achieved a quite good result with this method (\textasciitilde$~87\% $ categorical accuracy) and we decided to go on with fine-tuning this model. 
+	We trained this model, with only transfer learning using categorical crossentropy as our loss and categorical accuracy as our main metric, we used early stopping to stop the model from overfitting. The chosen batch size was 32, and 400 steps per epoch. We achieved a quite good result with this method (\textasciitilde87\% categorical accuracy) and we decided to go on with fine-tuning this model. 
 	
 	This however, was not possible, due to our technical limitations: the Google Colab environment could not support training this large of a model. This was one of the reasons we decided on a MobileNet for the third model: we wanted a transfer learning solution where we could also employ fine-tuning. 
 	
@@ -65,10 +66,10 @@
 	
 	\subsection{MobileNetV2}
 	
-	
+	We wanted to try out a smaller model, both to improve inference time and 
 	
 	\section{Evaluation method}
-	For evaluating the trained models, we used a few metrics. The metrics were calculated using sklearn. The calculated metrics are accuracy, balanced accuracy, precision (weighted), recall (weighted), f1 score (weighted) and top2 and top3 accuracy. Of course the top2 and top3 accuracies are less important because of the small number of classes.
+	For evaluating the trained models, we used a few metrics, these were calculated using sklearn. The calculated metrics are accuracy, balanced accuracy, precision (weighted), recall (weighted), f1 score (weighted) and top2 and top3 accuracy. Of course the top2 and top3 accuracies are less important because of the small number of classes.
 	
 	\section{Results}
 	The best results were achieved with the EfficientNetB5, the accuracy on the test dataset is 89.9\%. The accuracy achieved with MobileNetV2 was 83.5\%. On our own model the accuracy was about 50\%.
@@ -90,8 +91,10 @@
 	
 	\section{Discussion}
 	The results with the best models are comparable to the results which we've seen and covered in section \ref{sec:prevsolutions}.
-	Our own model had the worse results, but they are still better than random chance. The main reason could be the small number of images compared to the ImageNet dataset which the other models were pre-trained on. The model complexity and size can also we a hurdle, but as we've seen in \cite{Chu2018}, great results can be achieved which smaller (in terms of layer number) models.
+	Our own model had the worst results, but they are still better than random chance. The main reason could be the small number of images compared to the ImageNet dataset which the other models were pre-trained on. The model complexity and size can also we a hurdle, but as we've seen in \cite{Chu2018}, great results can be achieved which smaller (in terms of layer number) models.
 	The best results were achieved with the EfficientNetB5 which is not surprising because it's the largest model out of the three with about 30 million parameters. With the MobileNetV2 the accuracy was worse, but that model has about 3 million parameters and the inference time on a GPU is more than 6 times better (according to the Keras site \cite{keras_applications}).
+	
+	Overall, we found this method for waste classification quite effective and we believe that with further research into this subject involving segmentation and not just classification it could be used in a modern automatic waste sorting system.
 	
 	\bibliographystyle{unsrt}
 	\bibliography{irodalom}
